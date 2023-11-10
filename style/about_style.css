@@ -20,6 +20,8 @@ body{
 }
 
 .container{
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 10px 10%;
 }
 
@@ -85,3 +87,8 @@ color: white;
 p {
 color: white;
 }
+
+@media screen and (max-width: 600px) {
+    body {
+        background-color: black; /* Change background color for small screens */
+    }}
