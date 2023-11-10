@@ -8,16 +8,16 @@
 body{
     background: #080808;
     color: white;
-}
-
-#header{
-    margin: 0;
-    padding: 0;
+    text-align: center;
     background-image: url(../img/bgd.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-
+    background-size: cover;
+    background-position: fixed;
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh; /* Set a minimum height to ensure centering on the whole viewport */
+    overflow: hidden;
 }
+
 
 .container{
     max-width: 1200px;
