@@ -64,10 +64,12 @@ nav ul li a:hover::after{
     width: 100%;
 }
 
-.header-text h1{
+.header-text{
     text-align: center;
     font-size: x-large;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 75px;
 }
 
 .header-text p{
@@ -76,16 +78,10 @@ nav ul li a:hover::after{
     margin-top: 20px;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 20px; /* Adding margin to create space between header and section */
-}
-
-section {
-    padding: 20px; /* Adding padding to the section */
-    border-radius: 8px; /* Adding border-radius for a subtle rounded corner effect */
+h1 {
+color: white;
 }
 
 p {
-    line-height: 1.5;
+color: white;
 }
