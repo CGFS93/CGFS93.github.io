@@ -11,12 +11,12 @@ body{
 }
 
 #header{
-    width: 100%;
-    height: 100vh;
-    background-image: url(img/bgd.png);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    background-image: url(../img/bgd.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+
 }
 
 .container{
@@ -68,4 +68,24 @@ nav ul li a:hover::after{
     text-align: center;
     font-size: x-large;
     margin-top: 20px;
+}
+
+.header-text p{
+    text-align: center;
+    font-size: x-large;
+    margin-top: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px; /* Adding margin to create space between header and section */
+}
+
+section {
+    padding: 20px; /* Adding padding to the section */
+    border-radius: 8px; /* Adding border-radius for a subtle rounded corner effect */
+}
+
+p {
+    line-height: 1.5;
 }
