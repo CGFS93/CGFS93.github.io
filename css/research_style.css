@@ -14,7 +14,6 @@ body{
     padding: 20px;
     margin: 0;
     min-height: 100vh; /* Set a minimum height to ensure centering on the whole viewport */
-    overflow: hidden;
 }
 
 
@@ -68,11 +67,11 @@ nav ul li a:hover::after{
 .header-text{
     text-align: center;
     font-size: x-large;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    padding-bottom: 75px;
+    margin: 20px;
+    padding: 20px;
+    color: white;
 }
 
-h1 {
-color: white;
+footer {
+    color: green;
 }
