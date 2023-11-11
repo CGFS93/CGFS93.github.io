@@ -72,12 +72,47 @@ function createChart(labels, data) {
                 point: {
                     radius: 0 // Hide the points on the line
                 }
+            },
+            tooltips: {
+                position: 'custom',
+                callbacks: {
+                    title: function(tooltipItem, data) {
+                        return ''; // hide the title
+                    },
+                    label: function(tooltipItem, data) {
+                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel;
+                    }
+                },
+                custom: function(tooltipModel) {
+                    const tooltipEl = document.getElementById('custom-tooltip');
+
+                    if (!tooltipEl) {
+                        tooltipEl = document.createElement('div');
+                        tooltipEl.id = 'custom-tooltip';
+                        document.body.appendChild(tooltipEl);
+                    }
+
+                    if (tooltipModel.opacity === 0) {
+                        tooltipEl.style.opacity = 0;
+                        return;
+                    }
+
+                    tooltipEl.classList.remove('above', 'below', 'no-transform');
+                    if (tooltipModel.yAlign) {
+                        tooltipEl.classList.add(tooltipModel.yAlign);
+                    } else {
+                        tooltipEl.classList.add('no-transform');
+                    }
+
+                    tooltipEl.innerHTML = 'Custom Content: ' + tooltipModel.body[0].lines[0];
+                    tooltipEl.style.left = tooltipModel.caretX + 'px';
+                    tooltipEl.style.top = tooltipModel.caretY + 'px';
+                    tooltipEl.style.opacity = 1;
+                }
             }
         }
     });
 }
-
-
 
 function updateChart() {
     const selectedTimeFrame = document.getElementById('timeFrame').value;
