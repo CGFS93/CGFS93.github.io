@@ -1,1 +1,5 @@
 config.js
+
+# My Directories
+.vscode/
+Testing/
