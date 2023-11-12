@@ -79,14 +79,11 @@ footer {
 label {
     color: white;
     position: relative;
-    left: 400px;
 }
 
-select{
-    position: relative;
-    left: 400px;
-}
+
 
 canvas {
     background-color: black;
+
 }

@@ -45,6 +45,16 @@
 
         </div>
        </div>
+       <div class="header-text">
+        <h1>Historic Price</h1>
+        </div>
+       <label for="coin">Select Coin:</label>
+       <select id="coin" onchange="updateChart()">
+            <option value="Qwsogvtv82FCd">BTC</option>
+            <option value="razxDUgYGNAdQ">ETH</option>
+            <option value="VLqpJwogdhHNb">LINK</option>
+            <!-- Add more options as needed -->
+        </select>
        <label for="timeFrame">Select Time Frame:</label>
        <select id="timeFrame" onchange="updateChart()">
            <option value="5y">5 Years</option>
@@ -56,9 +66,6 @@
            <option value="24h">24 Hours</option>
            <option value="3h">3 Hours</option>
        </select>
-       <div class="header-text">
-       <h1>BitCoin (BTC)</h1>
-       </div>
        <canvas id="myChart" width="40px" height="20px"></canvas>
        <script src="js/main.js"></script>
        <footer>
