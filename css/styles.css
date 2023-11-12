@@ -76,23 +76,23 @@ footer {
     color: green;
 }
 
-
-label {
-    color: white;
-    position: relative;
-    right: 25%;
-}
-
-select {
-    position: relative;
-    right: 25%;
-    cursor: pointer;
-}
-
-
-
 canvas {
     background-color: black;
     cursor: crosshair;
+}
 
+select{
+    cursor: pointer;
+}
+
+.chart-selection{
+    color: white;
+    margin: 20px;
+}
+
+.chart {
+    width: 35%; /* Adjust the width as needed */
+    margin: 5px;
+    display: inline-block;
+    list-style: none;
 }
