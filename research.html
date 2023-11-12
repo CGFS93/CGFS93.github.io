@@ -45,9 +45,6 @@
 
         </div>
        </div>
-       <div class="header-text">
-        <h1>Historic Price</h1>
-        </div>
        <label for="coin">Select Coin:</label>
        <select id="coin" onchange="updateChart()">
             <option value="Qwsogvtv82FCd">BTC</option>
@@ -66,7 +63,10 @@
            <option value="24h">24 Hours</option>
            <option value="3h">3 Hours</option>
        </select>
-       <canvas id="myChart" width="40px" height="20px"></canvas>
+       <div class="myChart" style="position: relative; height:40vh; width:80vw">
+        <canvas id="myChart"></canvas>
+       </div>
+       <script type='text/javascript' src='js/config.js'></script>
        <script src="js/main.js"></script>
        <footer>
         <p>&copy; 2023 Sors Analytics. All rights reserved.</p>

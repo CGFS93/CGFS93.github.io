@@ -76,14 +76,23 @@ footer {
     color: green;
 }
 
+
 label {
     color: white;
     position: relative;
+    right: 25%;
+}
+
+select {
+    position: relative;
+    right: 25%;
+    cursor: pointer;
 }
 
 
 
 canvas {
     background-color: black;
+    cursor: crosshair;
 
 }

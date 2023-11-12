@@ -1,11 +1,12 @@
 let myChart; // Declare myChart outside functions for later reference
+var mykey = config.MY_KEY;
 
 async function fetchData(timeFrame, selectedCoin) {
     const url = `https://coinranking1.p.rapidapi.com/coin/${selectedCoin}/history?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=${timeFrame}`;
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': 'fd1cb23f63msh41afddfa667a152p1396a8jsnc8033fd9f6f2',
+            'X-RapidAPI-Key': mykey,
             'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
         }
     };
