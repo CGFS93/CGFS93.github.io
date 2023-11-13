@@ -5,20 +5,63 @@
         <meta http-equiv="X-UA-Compatible" content="IE-edge">
         <meta name="viewport" content="width-device-width, initial-scale-1.0">
         <title>Research</title>
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="../css/styles.css">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <div id="header">
             <div id="container">
                 <nav>
-                    <img src="img/logot.png" class="logo">
+                    <img src="../img/logot.png" class="logo">
                     <ul>
                         <li><a href="about.html">About</a></li>
                         <li><a href="apps.html">Apps</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
             </nav>
+            <div class="header-text">
+                <h1>Historic Price Data & Coin MarketCap</h1>
+            </div>
+
+            <div class="chart">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="marketCapChart" onchange="updateChart()"></canvas>
+            </div>
+
+            <div class="graphic">
+                <h3 id="priceChange"></h3>
+                <h3 id="currentPrice"></h3>
+                <h3 id="marketCapValue" onchange="updateChart()"></h3>
+            </div>
+
+
+
+            <div class="chart-selection">
+                <label for="timeFrame">Select Time Frame:</label>
+               <select id="timeFrame" onchange="updateChart()">
+                    <option value="3h">3 Hours</option>
+                    <option value="24h">24 Hours</option>
+                    <option value="7d">7 Days</option>
+                    <option value="30d">30 Days</option>
+                    <option value="3m">3 Months</option>
+                    <option value="1y">1 Year</option>
+                    <option value="3y">3 Year</option>
+                    <option value="5y">5 Years</option>
+               </select>
+            </div>
+
+            <div class="chart-selection">
+                <label for="coin">Select Coin:</label>
+                <select id="coin" onchange="updateChart()">
+                     <option value="Qwsogvtv82FCd">BTC</option>
+                     <option value="razxDUgYGNAdQ">ETH</option>
+                     <option value="VLqpJwogdhHNb">LINK</option>
+                     <!-- Add more options as needed -->
+                </select>
+             </div>
+
             <div class="header-text">
 
                     <h2>Digital Currencies Research Summary</h2>
@@ -45,34 +88,7 @@
 
         </div>
        </div>
-    <div class="chart-selection">
-       <label for="coin">Select Coin:</label>
-       <select id="coin" onchange="updateChart()">
-            <option value="Qwsogvtv82FCd">BTC</option>
-            <option value="razxDUgYGNAdQ">ETH</option>
-            <option value="VLqpJwogdhHNb">LINK</option>
-            <!-- Add more options as needed -->
-       </select>
-    </div>
-    <div class="chart-selection">
-        <label for="timeFrame">Select Time Frame:</label>
-       <select id="timeFrame" onchange="updateChart()">
-           <option value="5y">5 Years</option>
-           <option value="3y">3 Year</option>
-           <option value="1y">1 Year</option>
-           <option value="3m">3 Months</option>
-           <option value="30d">30 Days</option>
-           <option value="7d">7 Days</option>
-           <option value="24h">24 Hours</option>
-           <option value="3h">3 Hours</option>
-       </select>
-    </div>
-        <div class="chart">
-            <canvas id="myChart"></canvas>
-        </div>
-        <div class="chart">
-            <canvas id="marketCapChart"></canvas>
-        </div>
+
        <script type='text/javascript' src='js/config.js'></script>
        <script src="js/main.js"></script>
        <footer>

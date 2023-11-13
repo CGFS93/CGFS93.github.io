@@ -30,6 +30,7 @@ async function fetchData(timeFrame, selectedCoin) {
 
         // Extract data from the API response
         const data = jsonResult.data.history;
+        const priceChange = jsonResult.data.change;
         const supplyData = jsonSupply.data.supply;
         const priceData = jsonPrice.data.price;
 
@@ -37,7 +38,7 @@ async function fetchData(timeFrame, selectedCoin) {
         const timestamps = data.map(entry => entry.timestamp);
         const prices = data.map(entry => entry.price);
         const supply = supplyData['circulatingAmount']
-
+        const marketCap = supply * priceData
 
         // Use timestamps to generate human-readable dates
         const dates = generateDates(timestamps, timeFrame);
@@ -49,12 +50,115 @@ async function fetchData(timeFrame, selectedCoin) {
 
         // Continue with chart creation, including coin information and last known price
         createChart(dates.reverse(), prices.reverse(), selectedCoin);
-        barChart(priceData, supply, selectedCoin);
+        barChart(priceData, supply, selectedCoin, marketCapChart);
+        displayPriceChange(priceChange, timeFrame, selectedCoin);
+        displayMarketCap(marketCap);
+        displayCurrentPrice(priceData);
+
 
     } catch (error) {
         console.error(error.message);
     }
 }
+
+
+function displayCurrentPrice(priceData, selectedCoin) {
+
+    const roundedNumber = priceData;
+
+    const currentPriceString = parseFloat(roundedNumber).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+
+    // Format the price change value
+    const formattedCurrentPrice = '$' + currentPriceString
+
+    // Get the HTML element by its ID (replace 'priceChangeElement' with the actual ID)
+    const priceElement = document.getElementById('currentPrice');
+
+    // Update the HTML content
+    priceElement.textContent = `${nameSelection(selectedCoin)} Price in USD : ${formattedCurrentPrice}`;
+
+}
+
+
+function displayMarketCap(marketCap, selectedCoin) {
+
+    const marketCapString = String(marketCap.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+
+    // Format the price change value
+    const formattedMarketCap = '$' + marketCapString
+
+    // Get the HTML element by its ID (replace 'priceChangeElement' with the actual ID)
+    const elements = document.getElementById('marketCapValue');
+
+    // Update the HTML content
+    elements.textContent = `${nameSelection(selectedCoin)} MCAP in USD: ${formattedMarketCap}`;
+
+}
+
+
+
+function displayPriceChange(priceChange, timeFrame, selectedCoin) {
+
+    const priceChangeString = String(priceChange);
+
+    // Format the price change value
+    const formattedPriceChange = priceChangeString + '%'
+
+    // Get the HTML element by its ID (replace 'priceChangeElement' with the actual ID)
+    const element = document.getElementById('priceChange');
+
+// Change the color based on the sign of priceChange
+if (priceChange > 0) {
+    element.style.color = 'green';
+} else if (priceChange < 0) {
+    element.style.color = 'red';
+} else {
+    // If priceChange is zero, you might want to handle it differently
+    element.style.color = 'white';
+}
+
+
+    // Update the HTML content
+    element.textContent = `${nameSelection(selectedCoin)} ${timeSelection(timeFrame)} Price Change: ${formattedPriceChange}`;
+
+}
+
+
+function timeSelection(timeFrame) {
+    let time;
+    switch (timeFrame) {
+        case '5y':
+            time = '5 Year';
+            break;
+        case '3y':
+            time = '3 Year';
+            break;
+        case '1y':
+            time = '1 Year';
+            break;
+        case '3m':
+            time = '3 Month';
+            break;
+        case '30d':
+            time = '30 Day';
+            break;
+        case '7d':
+            time = '7 Day';
+            break;
+        case '24h':
+            time = '24 Hour';
+            break;
+        case '3h':
+            time = '3 Hour';
+            break;
+    }
+
+    return time;
+}
+
+
+
 
 function generateDates(timestamps, timeFrame) {
   // Choose the date format based on the time frame
@@ -99,7 +203,6 @@ function nameSelection(selectedCoin) {
         case 'Qwsogvtv82FCd':
             Name = "Bitcoin (BTC)"
             break;
-
         case 'razxDUgYGNAdQ':
             Name = "Ethereum (ETH)"
             break;
@@ -120,7 +223,8 @@ function colorSelection(selectedCoin) {
         case 'razxDUgYGNAdQ':
             color = 'rgba(138, 43, 226, 0.5)'
             break;
-            case 'VLqpJwogdhHNb':
+
+        case 'VLqpJwogdhHNb':
             color = 'rgba(0, 0, 255, 0.5)'
             break;
     }
@@ -144,6 +248,15 @@ function createChart(labels, data, selectedCoin) {
             }]
         },
         options: {
+            scales: {
+                y: {
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return '$' + value.toFixed(2);
+                        }
+                    }
+                }
+            },
             plugins: {
                 legend: {
                     display: false // Hide the legend
@@ -158,11 +271,22 @@ function createChart(labels, data, selectedCoin) {
     });
 }
 
+
 let marketCapChart; // Declare marketCapChart outside functions for later reference
+
 
 function barChart(priceData, supply, selectedCoin) {
     // Calculate market cap
     const marketCap = priceData * supply;
+
+    // Format market cap with commas and two decimal places
+    const formattedMarketCap = marketCap.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    // Update the HTML element with the market cap
+    document.getElementById('marketCapValue').textContent = `${nameSelection(selectedCoin)} MCAP in USD: $${formattedMarketCap}`;
 
     // Check if marketCapChart exists
     if (!marketCapChart) {
@@ -171,12 +295,12 @@ function barChart(priceData, supply, selectedCoin) {
         marketCapChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: [nameSelection(selectedCoin)], // Use an array for labels
+                labels: [nameSelection(selectedCoin)],
                 datasets: [{
                     label: 'Market Cap (USD)',
-                    data: [marketCap], // Use an array for data
-                    borderColor: 'rgba(255, 215, 0, 0.5)',
-                    backgroundColor: 'rgba(255, 215, 0, 0.5)',
+                    data: [marketCap],
+                    backgroundColor: colorSelection(selectedCoin),
+                    borderColor: colorSelection(selectedCoin),
                     borderWidth: 1
                 }]
             },
@@ -184,7 +308,6 @@ function barChart(priceData, supply, selectedCoin) {
                 scales: {
                     y: {
                         beginAtZero: true,
-                        // Include a dollar sign in the ticks
                         ticks: {
                             callback: function (value, index, values) {
                                 return '$' + value.toFixed(2);
@@ -194,7 +317,7 @@ function barChart(priceData, supply, selectedCoin) {
                 },
                 plugins: {
                     legend: {
-                        display: false // Hide the legend
+                        display: false
                     }
                 }
             }
@@ -205,12 +328,11 @@ function barChart(priceData, supply, selectedCoin) {
         marketCapChart.data.datasets[0].data = [marketCap];
 
         // Update border color and background color
-        marketCapChart.data.datasets[0].backgroundColor = colorSelection(selectedCoin); // Update to your desired background color
-        marketCapChart.data.datasets[0].borderColor = colorSelection(selectedCoin); // Update to your desired border color
+        marketCapChart.data.datasets[0].backgroundColor = colorSelection(selectedCoin);
+        marketCapChart.data.datasets[0].borderColor = colorSelection(selectedCoin);
 
         marketCapChart.update();
     }
-
 }
 
 
